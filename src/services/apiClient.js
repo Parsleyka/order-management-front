@@ -1,3 +1,5 @@
+import config from '../config/configs'
+
 export default async function (route, method, data) {
     const options = {
         method: method,
@@ -11,7 +13,7 @@ export default async function (route, method, data) {
     }
 
     try {
-        const response = await fetch(`http://localhost:8080${route}`, options)
+        const response = await fetch(`http://${config.apiUrl}:${config.apiPort}${route}`, options)
 
         return await response.json()
     } catch (error) {

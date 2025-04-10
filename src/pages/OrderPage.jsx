@@ -1,7 +1,7 @@
 import { Box, Container, CssBaseline } from '@mui/material'
 import OrderForm from '../components/OrderForm/OrderForm.jsx'
 import OrderList from '../components/OrderList/OrderList.jsx'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import styles from './OrderPage.module.css'
 import orderService from '../services/orderService.js'
 
@@ -9,7 +9,7 @@ function OrderPage({ setError }) {
     const [userId, setUserId] = useState(null)
     const [orders, setOrders] = useState([])
 
-    const fetchOrders = async () => {
+    const fetchOrders = useCallback(async () => {
         if (userId) {
             const response = await orderService.getOrdersByUserId(userId)
 
@@ -19,11 +19,11 @@ function OrderPage({ setError }) {
                 setOrders(response.body)
             }
         }
-    }
+    }, [userId, setError])
 
     useEffect(() => {
         fetchOrders()
-    },[userId])
+    },[userId, fetchOrders])
 
     return (
         <>
@@ -32,7 +32,7 @@ function OrderPage({ setError }) {
                 <Box className={styles.formContainer}>
                     <OrderForm setUserId={setUserId} onUpdate={fetchOrders} setError={setError}/>
                 </Box>
-                <Box className={styles.tableContainer} setError={setError}>
+                <Box className={styles.tableContainer}>
                     <OrderList orders={orders}/>
                 </Box>
             </Container>

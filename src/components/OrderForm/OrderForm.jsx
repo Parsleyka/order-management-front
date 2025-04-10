@@ -42,7 +42,10 @@ function OrderForm({ setUserId, onUpdate, setError}) {
                     type="number"
                     fullWidth
                     {...register('quantity', {
-                        required: true
+                        required: true,
+                        min: {
+                            value: 0
+                        }
                     })} />
                 <Button variant="contained" type="submit" fullWidth sx={{marginTop: '3%'}}>
                     Submit Order

@@ -2,7 +2,7 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { Alert, Container, CssBaseline, Snackbar } from '@mui/material'
 
-import OrderPage from './pages/OrgerPage'
+import OrderPage from './pages/OrderPage.jsx'
 
 function App() {
     const [error, setError] = useState(null)
@@ -22,6 +22,7 @@ function App() {
 
     return (
         <>
+            <h1>{import.meta.env.VITE_APP_TMP}</h1>
             <CssBaseline/>
             <Container maxWidth="xl" className="containerFlex">
                 <OrderPage setError={setError} />
